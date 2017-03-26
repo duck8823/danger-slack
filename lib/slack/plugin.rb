@@ -17,17 +17,62 @@ module Danger
   # @tags monday, weekends, time, rattata
   #
   class DangerSlack < Plugin
-
-    # An attribute that you can read/write from your Dangerfile
+    # API token to authenticate with SLACK API
     #
-    # @return   [Array<String>]
-    attr_accessor :my_attribute
+    # @return [String]
+    attr_accessor :api_token
 
+    def initialize(dangerfile)
+      super(dangerfile)
+
+      @api_token = ENV['SLACK_API_TOKEN']
+
+      @conn = Faraday.new(url: 'https://slack.com/api')
+    end
+
+    # get slack team members
+    #
+    # @return [[Hash]]
+    def members
+      res = @conn.get 'users.list', token: @api_token
+      Array(JSON.parse(res.body)['members'])
+    end
+
+    # get slack team members
+    #
+    # @return [[Hash]]
+    def channels
+      res = @conn.get 'channels.list', token: @api_token
+      Array(JSON.parse(res.body)['channels'])
+    end
+
+    # notify to Slack
     # A method that you can call from your Dangerfile
-    # @return   [Array<String>]
-    #
-    def warn_on_mondays
-      warn 'Trying to merge code on a Monday' if Date.today.wday == 1
+    # @return [void]
+    def notify(channel:, text: nil, **_opts)
+      text ||= report
+      @conn.post do |req|
+        req.url 'chat.postMessage'
+        req.params = {
+          token: @api_token,
+          channel: channel,
+          text: text
+        }
+      end
+    end
+
+    private
+
+    # get status_report text
+    # @return [String]
+    def report
+      status_report
+        .select { |_, v| !v.empty? }
+        .map do |k, v|
+          val = v.dup
+          val.unshift("##{k}").join("\n")
+        end
+        .join("\n")
     end
   end
 end

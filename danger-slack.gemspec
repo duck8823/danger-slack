@@ -8,12 +8,12 @@ Gem::Specification.new do |spec|
   spec.version       = Slack::VERSION
   spec.authors       = ['shunsuke maeda']
   spec.email         = ['duck8823@gmail.com']
-  spec.description   = %q{A short description of danger-slack.}
-  spec.summary       = %q{A longer description of danger-slack.}
+  spec.description   = 'A short description of danger-slack.'
+  spec.summary       = 'A longer description of danger-slack.'
   spec.homepage      = 'https://github.com/shunsuke maeda/danger-slack'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files`.split($/)
+  spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
@@ -26,10 +26,11 @@ Gem::Specification.new do |spec|
 
   # Testing support
   spec.add_development_dependency 'rspec', '~> 3.4'
+  spec.add_development_dependency 'webmock', '~> 2.3'
 
   # Linting code and docs
-  spec.add_development_dependency "rubocop", "~> 0.41"
-  spec.add_development_dependency "yard", "~> 0.8"
+  spec.add_development_dependency 'rubocop', '~> 0.41'
+  spec.add_development_dependency 'yard', '~> 0.8'
 
   # Makes testing easy via `bundle exec guard`
   spec.add_development_dependency 'guard', '~> 2.14'
