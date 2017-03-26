@@ -56,7 +56,8 @@ module Danger
         req.params = {
           token: @api_token,
           channel: channel,
-          text: text
+          text: text,
+          link_names: 1
         }
       end
     end
@@ -70,7 +71,7 @@ module Danger
         .select { |_, v| !v.empty? }
         .map do |k, v|
           val = v.dup
-          val.unshift("##{k}").join("\n")
+          val.unshift("*#{k}*").join("\n")
         end
         .join("\n")
     end

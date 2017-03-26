@@ -66,7 +66,7 @@ module Danger
         expect(WebMock).to have_requested(:post, 'https://slack.com/api/chat.postMessage')
           .with(query: hash_including(token: 'hoge',
                                       channel: '#general',
-                                      text: "#warnings\nfoo"))
+                                      text: "*warnings*\nfoo"))
       end
     end
   end
