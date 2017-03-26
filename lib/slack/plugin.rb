@@ -50,14 +50,17 @@ module Danger
     # A method that you can call from your Dangerfile
     # @return [void]
     def notify(channel:, text: nil, **_opts)
-      text ||= report
+      attachments = []
+      text, attachments = report if text.nil?
       @conn.post do |req|
         req.url 'chat.postMessage'
         req.params = {
           token: @api_token,
           channel: channel,
           text: text,
-          link_names: 1
+          attachments: attachments,
+          link_names: 1,
+          **_opts
         }
       end
     end
@@ -67,13 +70,36 @@ module Danger
     # get status_report text
     # @return [String]
     def report
-      status_report
-        .select { |_, v| !v.empty? }
-        .map do |k, v|
-          val = v.dup
-          val.unshift("*#{k}*").join("\n")
+      attachment = status_report
+                   .select { |_, v| !v.empty? }
+                   .map do |k, v|
+        text = v.join "\n"
+
+        case k.to_s
+        when 'errors' then
+          {
+            title: 'errors',
+            text: text,
+            color: 'danger'
+          }
+        when 'warnings' then
+          {
+            title: 'warnings',
+            text: text,
+            color: 'warning'
+          }
+        when 'messages' then
+          {
+            title: 'messages',
+            text: text,
+            color: 'good'
+          }
         end
-        .join("\n")
+      end
+      text = status_report
+             .select { |k, _v| k == 'markdown' }
+             .map { |_, v| v }.join "\n"
+      [text, attachment]
     end
   end
 end
