@@ -58,7 +58,7 @@ module Danger
           token: @api_token,
           channel: channel,
           text: text,
-          attachments: attachments,
+          attachments: attachments.to_json,
           link_names: 1,
           **_opts
         }
@@ -97,8 +97,8 @@ module Danger
         end
       end
       text = status_report
-             .select { |k, _v| k == 'markdown' }
-             .map { |_, v| v }.join "\n"
+             .select { |k, _| k.to_s == 'markdowns' }
+             .map { |_, v| v.join "\n" }.join "\n"
       [text, attachment]
     end
   end
