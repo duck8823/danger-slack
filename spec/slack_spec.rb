@@ -62,15 +62,32 @@ module Danger
             status: 200
           )
         @my_plugin.warn('foo')
+        @my_plugin.markdown('bar')
+        @my_plugin.markdown('hoge', file: 'foo', line: 1)
         @my_plugin.notify(channel: '#general')
         expect(WebMock).to have_requested(:post, 'https://slack.com/api/chat.postMessage')
           .with(query: hash_including(token: 'hoge',
                                       channel: '#general',
                                       attachments: [{
-                                        title: 'warnings',
                                         text: 'foo',
                                         color: 'warning'
-                                      }]))
+                                      }, {
+                                        text: 'bar',
+                                        fields: []
+                                      }, {
+                                        text: 'hoge',
+                                        fields: [
+                                          {
+                                            title: 'file',
+                                            value: 'foo',
+                                            short: true
+                                          }, {
+                                            title: 'line',
+                                            value: 1,
+                                            short: true
+                                          }
+                                        ]
+                                      }].to_json))
       end
     end
   end

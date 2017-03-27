@@ -49,9 +49,8 @@ module Danger
     # notify to Slack
     # A method that you can call from your Dangerfile
     # @return [void]
-    def notify(channel:, text: nil, **_opts)
-      attachments = []
-      text, attachments = report if text.nil?
+    def notify(channel:, text: nil, **opts)
+      attachments = text.nil? ? report : []
       @conn.post do |req|
         req.url 'chat.postMessage'
         req.params = {
@@ -60,7 +59,7 @@ module Danger
           text: text,
           attachments: attachments.to_json,
           link_names: 1,
-          **_opts
+          **opts
         }
       end
     end
@@ -68,38 +67,54 @@ module Danger
     private
 
     # get status_report text
-    # @return [String]
+    # @return [[Hash]]
     def report
       attachment = status_report
                    .select { |_, v| !v.empty? }
                    .map do |k, v|
-        text = v.join "\n"
-
         case k.to_s
         when 'errors' then
           {
-            title: 'errors',
-            text: text,
+            text: v.join("\n"),
             color: 'danger'
           }
         when 'warnings' then
           {
-            title: 'warnings',
-            text: text,
+            text: v.join("\n"),
             color: 'warning'
           }
         when 'messages' then
           {
-            title: 'messages',
-            text: text,
+            text: v.join("\n"),
             color: 'good'
           }
+        when 'markdowns' then
+          v.map do |val|
+            {
+              text: val.message,
+              fields: fields(val)
+            }
+          end
         end
       end
-      text = status_report
-             .select { |k, _| k.to_s == 'markdowns' }
-             .map { |_, v| v.join "\n" }.join "\n"
-      [text, attachment]
+      attachment.flatten
+    end
+
+    # get markdown fields
+    # @return [[Hash]]
+    def fields(markdown)
+      fields = []
+      if markdown.file
+        fields.push(title: 'file',
+                    value: markdown.file,
+                    short: true)
+      end
+      if markdown.line
+        fields.push(title: 'line',
+                    value: markdown.line,
+                    short: true)
+      end
+      fields
     end
   end
 end
