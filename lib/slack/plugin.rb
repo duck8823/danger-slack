@@ -51,6 +51,7 @@ module Danger
     # @return [void]
     def notify(channel:, text: nil, **opts)
       attachments = text.nil? ? report : []
+      text ||= '<http://danger.systems/|Danger> reports'
       @conn.post do |req|
         req.url 'chat.postMessage'
         req.params = {
