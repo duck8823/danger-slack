@@ -1,20 +1,39 @@
 # danger-slack
 
-A description of danger-slack.
+Notify danger reports to slack.
 
 ## Installation
 
     $ gem install danger-slack
 
 ## Usage
+### How to set your Slack API token
+In Dangerfile,
+```ruby
+slack.api_token = 'SLACK_API_TOKEN'
+```
 
-    Methods and attributes from this plugin are available in
-    your `Dangerfile` under the `slack` namespace.
+or 
 
-## Development
+Set Environment variable `SLACK_API_TOKEN`
+  
+### methods
+Get channels
+```ruby
+slack.channels
+```
 
-1. Clone this repo
-2. Run `bundle install` to setup dependencies.
-3. Run `bundle exec rake spec` to run the tests.
-4. Use `bundle exec guard` to automatically have tests run as you make changes.
-5. Make your changes.
+Get members
+```ruby
+slack.members
+```
+
+Notify danger reports to slack
+```ruby
+slack.notify(channel: '#your_channel')
+```
+
+Post message to slack
+```ruby
+slack.notify(channel: '#your_channel', text: 'hello danger')
+```
