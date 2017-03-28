@@ -52,7 +52,7 @@ module Danger
     # notify to Slack
     # A method that you can call from your Dangerfile
     # @return [void]
-    def notify(channel:, text: nil, **opts)
+    def notify(channel: '#general', text: nil, **opts)
       attachments = text.nil? ? report : []
       text ||= '<http://danger.systems/|Danger> reports'
       @conn.post do |req|
