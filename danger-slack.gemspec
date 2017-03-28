@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Slack::VERSION
   spec.authors       = ['shunsuke maeda']
   spec.email         = ['duck8823@gmail.com']
-  spec.description   = 'A short description of danger-slack.'
-  spec.summary       = 'A longer description of danger-slack.'
-  spec.homepage      = 'https://github.com/shunsuke maeda/danger-slack'
+  spec.description   = 'Notify danger reports to slack.'
+  spec.summary       = 'This is plugin for Danger that notify danger reports to slack.'
+  spec.homepage      = 'https://github.com/duck8823/danger-slack'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
