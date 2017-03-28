@@ -1,20 +1,23 @@
 module Danger
-  # This is your plugin class. Any attributes or methods you expose here will
-  # be available from within your Dangerfile.
+  # Notify danger reports to slack.
   #
-  # To be published on the Danger plugins site, you will need to have
-  # the public interface documented. Danger uses [YARD](http://yardoc.org/)
-  # for generating documentation from your plugin source, and you can verify
-  # by running `danger plugins lint` or `bundle exec rake spec`.
+  # @example Configure credentials to access the Slack API
+  #          slack.api_token = YOUR_API_TOKEN
   #
-  # You should replace these comments with a public description of your library.
+  # @example Get channels
+  #          message slack.channels.map {|channel| channel['name']}.join "\n"
   #
-  # @example Ensure people are well warned about merging on Mondays
+  # @example Get members
+  #          message slack.members.map {|member| member['name'] }.join "\n"
   #
-  #          my_plugin.warn_on_mondays
+  # @example Notify danger reports to slack
+  #          slack.notify(channel: '#your_channel')
   #
-  # @see  shunsuke maeda/danger-slack
-  # @tags monday, weekends, time, rattata
+  # @example Post message to slack
+  #          slack.notify(channel: '#your_channel', text: 'hello danger')
+  #
+  # @see  duck8823/danger-slack
+  # @tags slack
   #
   class DangerSlack < Plugin
     # API token to authenticate with SLACK API
