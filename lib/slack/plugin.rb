@@ -34,6 +34,7 @@ module Danger
     end
 
     # get slack team members
+    # For more information, see also https://api.slack.com/methods/users.list
     #
     # @return [[Hash]]
     def members
@@ -41,7 +42,8 @@ module Danger
       Array(JSON.parse(res.body)['members'])
     end
 
-    # get slack team members
+    # get slack team channels
+    # For more information, see also https://api.slack.com/methods/channels.list
     #
     # @return [[Hash]]
     def channels
@@ -50,7 +52,12 @@ module Danger
     end
 
     # notify to Slack
-    # A method that you can call from your Dangerfile
+    #
+    # @param   [String] channel
+    #          It is channel to be notified, defaults to '#general'
+    # @param   [String] text
+    #          text message posted to slack, defaults to nil.
+    #          if nil, this method post danger reports to slack.
     # @return [void]
     def notify(channel: '#general', text: nil, **opts)
       attachments = text.nil? ? report : []
