@@ -28,6 +28,11 @@ Get members
 slack.members
 ```
 
+Get groups
+```ruby
+slack.groups
+```
+
 Notify danger reports to slack
 ```ruby
 slack.notify(channel: '#your_channel')

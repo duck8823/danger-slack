@@ -51,6 +51,15 @@ module Danger
       Array(JSON.parse(res.body)['channels'])
     end
 
+    # get slack team groups (private channels)
+    # For more information, see also http://api.slack.com/methods/groups.list
+    #
+    # @return [[Hash]]
+    def groups
+      res = @conn.get 'groups.list', token: @api_token
+      Array(JSON.parse(res.body)['groups'])
+    end
+
     # notify to Slack
     #
     # @param   [String] channel

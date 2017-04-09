@@ -40,6 +40,16 @@ module Danger
         expect(@my_plugin.channels).to eq [{ 'hoge' => 'fuga' }]
       end
 
+      it 'groups' do
+        stub_request(:get, 'https://slack.com/api/groups.list')
+            .with(query: { token: 'hoge' })
+            .to_return(
+                body: '{"groups":[{"hoge":"fuga"}]}',
+                status: 200
+            )
+        expect(@my_plugin.groups).to eq [{ 'hoge' => 'fuga' }]
+      end
+
       it 'notify with text' do
         stub_request(:post, 'https://slack.com/api/chat.postMessage')
           .with(query: hash_including(token: 'hoge'))
