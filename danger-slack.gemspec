@@ -1,4 +1,5 @@
 # coding: utf-8
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'slack/gem_version.rb'
@@ -9,7 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['shunsuke maeda']
   spec.email         = ['duck8823@gmail.com']
   spec.description   = 'Notify danger reports to slack.'
-  spec.summary       = 'This is plugin for Danger that notify danger reports to slack.'
+  spec.summary       = 'This is plugin for Danger \
+                        that notify danger reports to slack.'
   spec.homepage      = 'https://github.com/duck8823/danger-slack'
   spec.license       = 'MIT'
 

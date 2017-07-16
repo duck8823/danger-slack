@@ -42,11 +42,11 @@ module Danger
 
       it 'groups' do
         stub_request(:get, 'https://slack.com/api/groups.list')
-            .with(query: { token: 'hoge' })
-            .to_return(
-                body: '{"groups":[{"hoge":"fuga"}]}',
-                status: 200
-            )
+          .with(query: { token: 'hoge' })
+          .to_return(
+            body: '{"groups":[{"hoge":"fuga"}]}',
+            status: 200
+          )
         expect(@my_plugin.groups).to eq [{ 'hoge' => 'fuga' }]
       end
 

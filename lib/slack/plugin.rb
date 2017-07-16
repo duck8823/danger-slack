@@ -90,7 +90,7 @@ module Danger
     # @return [[Hash]]
     def report
       attachment = status_report
-                   .select { |_, v| !v.empty? }
+                   .reject { |_, v| v.empty? }
                    .map do |k, v|
         case k.to_s
         when 'errors' then
