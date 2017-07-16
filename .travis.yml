@@ -10,3 +10,6 @@ rvm:
 
 script:
     - bundle exec rake spec
+
+after_script:
+    - bundle exec danger

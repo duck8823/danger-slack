@@ -49,4 +49,9 @@ Gem::Specification.new do |spec|
   #
   # This will stop test execution and let you inspect the results
   spec.add_development_dependency 'pry'
+
+  spec.add_development_dependency 'danger'
+  spec.add_development_dependency 'danger-rubocop'
+  spec.add_development_dependency 'danger-commit_lint'
+  spec.add_development_dependency 'danger-slack'
 end
