@@ -3,3 +3,6 @@ MethodLength:
 
 BlockLength:
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
