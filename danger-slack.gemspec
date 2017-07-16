@@ -53,5 +53,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'danger'
   spec.add_development_dependency 'danger-rubocop'
   spec.add_development_dependency 'danger-commit_lint'
-  spec.add_development_dependency 'danger-slack'
 end
