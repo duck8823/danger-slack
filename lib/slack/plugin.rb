@@ -5,7 +5,7 @@ module Danger
   #    1. create bot in https://my.slack.com/services/new/bot
   #    2. invite created bot user to channel in slack app
   #
-  # `slack.api_token` or `SLACK_API_TOKEN` are the bot's token starting from `xoxb-`
+  # The bot's token is starting from `xoxb-`
   #
   # @example Configure credentials to access the Slack API
   #          slack.api_token = YOUR_API_TOKEN
