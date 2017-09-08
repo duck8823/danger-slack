@@ -6,8 +6,8 @@ cache:
 rvm:
   - 2.3.1
 
+before_script:
+    - bundle exec danger
+
 script:
     - bundle exec rake spec
-
-after_script:
-    - bundle exec danger
