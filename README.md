@@ -2,6 +2,15 @@
 
 Notify danger reports to slack.
 
+## slack setup
+
+The following steps is required for using danger-slack plugin.  
+
+    1. create bot in https://my.slack.com/services/new/bot  
+    2. invite created bot user to channel in slack app
+
+`slack.api_token` or `SLACK_API_TOKEN` are the bot's token starting from `xoxb-`
+
 ## Installation
 
     $ gem install danger-slack

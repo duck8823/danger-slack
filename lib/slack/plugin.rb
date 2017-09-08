@@ -1,6 +1,12 @@
 module Danger
   # Notify danger reports to slack.
   #
+  # The following steps is required for using danger-slack plugin.
+  #    1. create bot in https://my.slack.com/services/new/bot
+  #    2. invite created bot user to channel in slack app
+  #
+  # The bot's token is starting from `xoxb-`
+  #
   # @example Configure credentials to access the Slack API
   #          slack.api_token = YOUR_API_TOKEN
   #
