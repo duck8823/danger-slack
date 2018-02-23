@@ -74,17 +74,18 @@ module Danger
     #          text message posted to slack, defaults to nil.
     #          if nil, this method post danger reports to slack.
     # @return [void]
-    def notify(channel: '#general', text: nil, **opts)
-      attachments = text.nil? ? report : []
+    def notify(channel: '#general', text: nil, attachments: [], **opts)
+      attachments = report if text.nil? 
       text ||= '<http://danger.systems/|Danger> reports'
       @conn.post do |req|
         req.url 'chat.postMessage'
         req.params = {
           token: @api_token,
           channel: channel,
+          as_user: true,
           text: text,
           attachments: attachments.to_json,
-          link_names: 1,
+          link_names: true,
           **opts
         }
       end
