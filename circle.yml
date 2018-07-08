@@ -1,9 +1,0 @@
-machine:
-  ruby:
-    version: 2.3.1
-
-test:
-  pre:
-    - bundle exec danger
-  override:
-    - bundle exec rake spec
