@@ -1,7 +1,0 @@
-box: ruby:2.3.1
-build:
-    steps:
-        - bundle-install
-        - script:
-            name: test
-            code: bundle exec rake spec
