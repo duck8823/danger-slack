@@ -73,6 +73,7 @@ module Danger
     # @param   [String] text
     #          text message posted to slack, defaults to nil.
     #          if nil, this method post danger reports to slack.
+    # @param   [Hash] **opts
     # @return [void]
     def notify(channel: '#general', text: nil, **opts)
       attachments = text.nil? ? report : []
