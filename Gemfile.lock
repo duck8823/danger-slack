@@ -133,7 +133,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.3)
+  bundler (~> 2.0)
   danger
   danger-commit_lint
   danger-rubocop
@@ -149,4 +149,4 @@ DEPENDENCIES
   yard (~> 0.9.11)
 
 BUNDLED WITH
-   1.16.0.pre.2
+   2.2.15
